@@ -77,7 +77,6 @@ Atualmente o projeto encontra-se em fase de planejamento e definição da arquit
 
 A documentação funcional e arquitetural pode ser encontrada na pasta:
 
-text
 docs/
 
 
