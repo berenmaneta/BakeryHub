@@ -1,944 +1,451 @@
-\# Arquitetura
+# Arquitetura
 
+## Visão Geral
 
-
-\## Visão Geral
-
-
-
-O BakeryHub será desenvolvido utilizando a abordagem de \*Monólito Modular\* combinada com os princípios da \*Clean Architecture\*.
-
-
+O BakeryHub será desenvolvido utilizando a abordagem de *Monólito Modular* combinada com os princípios da *Clean Architecture*.
 
 O objetivo é manter o sistema simples o suficiente para ser desenvolvido por uma única pessoa, mas estruturado de forma profissional, permitindo evolução, manutenção e escalabilidade futura.
 
-
-
 A arquitetura foi projetada para demonstrar boas práticas de desenvolvimento de software, separação de responsabilidades, domínio estruturado e integração com tecnologias modernas do ecossistema .NET.
 
+---
 
+# Princípios Arquiteturais
 
-\---
-
-
-
-\# Princípios Arquiteturais
-
-
-
-\## Clean Architecture
-
-
+## Clean Architecture
 
 O sistema será organizado em camadas com responsabilidades bem definidas.
 
-
-
 As regras de negócio não devem depender de bibliotecas, frameworks ou tecnologias específicas.
-
-
 
 As dependências devem apontar sempre para o centro da aplicação.
 
-
-
-text
-
 API
-
-&#x20;↓
-
+ ↓
 Application
-
-&#x20;↓
-
+ ↓
 Domain
 
-
-
 Infrastructure
-
-&#x20;↑
-
-
-
+ ↑
 
 
 O domínio representa o núcleo da solução e deve permanecer independente das tecnologias utilizadas.
 
+---
 
-
-\---
-
-
-
-\## Monólito Modular
-
-
+## Monólito Modular
 
 O BakeryHub será implementado inicialmente como um monólito modular.
 
-
-
 Essa decisão foi tomada para reduzir a complexidade operacional e permitir foco na evolução do produto.
-
-
 
 Benefícios:
 
+- Menor complexidade
+- Um único deploy
+- Um único banco de dados
+- Facilidade de desenvolvimento
+- Facilidade de testes
+- Possibilidade de evolução futura para microserviços
 
+---
 
-\- Menor complexidade
-
-\- Um único deploy
-
-\- Um único banco de dados
-
-\- Facilidade de desenvolvimento
-
-\- Facilidade de testes
-
-\- Possibilidade de evolução futura para microserviços
-
-
-
-\---
-
-
-
-\## Arquitetura Orientada a Eventos
-
-
+## Arquitetura Orientada a Eventos
 
 Embora seja um monólito, o sistema utilizará eventos internos e mensageria para desacoplar processos assíncronos.
 
-
-
 Exemplos:
 
-
-
-\- Criação de produção
-
-\- Agendamento de notificações
-
-\- Envio de notificações
-
-
+- Criação de produção
+- Agendamento de notificações
+- Envio de notificações
 
 A comunicação assíncrona permitirá demonstrar conceitos de Event Driven Architecture sem introduzir a complexidade de um ambiente baseado em microserviços.
 
+---
 
-
-\---
-
-
-
-\# Estrutura da Solução
-
-
-
-text
+# Estrutura da Solução
 
 BakeryHub.sln
 
-
-
 src
 
-
-
 ├── BakeryHub.Api
-
 ├── BakeryHub.Application
-
 ├── BakeryHub.Domain
-
 ├── BakeryHub.Infrastructure
-
 ├── BakeryHub.Contracts
-
 └── BakeryHub.Worker
-
-
 
 tests
 
-
-
 ├── BakeryHub.UnitTests
-
 └── BakeryHub.IntegrationTests
 
 
+---
 
+# Camadas da Aplicação
 
-
-\---
-
-
-
-\# Camadas da Aplicação
-
-
-
-\## BakeryHub.Domain
-
-
+## BakeryHub.Domain
 
 Responsável pelas regras de negócio e entidades do sistema.
 
-
-
 Não deve possuir dependências de frameworks ou tecnologias externas.
-
-
 
 Exemplos:
 
-
-
-text
-
 User
-
 Role
-
 UserRole
 
-
-
 BakeryApplication
-
 BakeryProfile
-
-
 
 Batch
 
-
-
 Subscription
 
-
-
 Notification
-
 NotificationPreference
-
-
 
 DeviceToken
 
 
-
-
-
 Também conterá:
 
+- Enums
+- Regras de negócio
+- Validações de domínio
+- Exceções de domínio
 
+---
 
-\- Enums
-
-\- Regras de negócio
-
-\- Validações de domínio
-
-\- Exceções de domínio
-
-
-
-\---
-
-
-
-\## BakeryHub.Application
-
-
+## BakeryHub.Application
 
 Responsável pelos casos de uso da aplicação.
 
-
-
 Contém a orquestração das regras de negócio.
-
-
 
 Exemplos:
 
-
-
-\### Commands
-
-
-
-text
+### Commands
 
 CreateUser
 
-
-
 RequestBakeryApproval
-
-
 
 ApproveBakeryApplication
 
-
-
 CreateBatch
-
-
 
 FollowBakery
 
 
-
-
-
-\### Queries
-
-
-
-text
+### Queries
 
 GetUser
 
-
-
 GetBakery
 
-
-
 GetActiveBatches
-
-
 
 GetNotifications
 
 
-
-
-
 Responsabilidades:
 
+- Casos de uso
+- Validações de aplicação
+- DTOs internos
+- Interfaces
+- Regras de autorização
 
+---
 
-\- Casos de uso
-
-\- Validações de aplicação
-
-\- DTOs internos
-
-\- Interfaces
-
-\- Regras de autorização
-
-
-
-\---
-
-
-
-\## BakeryHub.Infrastructure
-
-
+## BakeryHub.Infrastructure
 
 Responsável pelas implementações técnicas.
 
-
-
 Não contém regras de negócio.
-
-
 
 Exemplos:
 
-
-
-text
-
 Entity Framework Core
-
-
 
 SQL Server
 
-
-
 RabbitMQ
-
-
 
 Azure Blob Storage
 
-
-
 JWT Authentication
-
-
 
 Firebase Notifications
 
 
-
-
-
 Responsabilidades:
 
+- Persistência
+- Mensageria
+- Serviços externos
+- Configurações técnicas
 
+---
 
-\- Persistência
-
-\- Mensageria
-
-\- Serviços externos
-
-\- Configurações técnicas
-
-
-
-\---
-
-
-
-\## BakeryHub.Api
-
-
+## BakeryHub.Api
 
 Camada de apresentação HTTP.
 
-
-
 Responsável por expor os recursos da plataforma.
-
-
 
 Exemplos:
 
-
-
-text
-
 /api/auth
-
-
 
 /api/users
 
-
-
 /api/bakeries
 
-
-
 /api/batches
-
-
 
 /api/notifications
 
 
-
-
-
 Responsabilidades:
 
+- Controllers
+- Middlewares
+- Swagger
+- Autenticação
+- Autorização
+- Tratamento global de exceções
 
+---
 
-\- Controllers
-
-\- Middlewares
-
-\- Swagger
-
-\- Autenticação
-
-\- Autorização
-
-\- Tratamento global de exceções
-
-
-
-\---
-
-
-
-\## BakeryHub.Contracts
-
-
+## BakeryHub.Contracts
 
 Responsável pelo compartilhamento de contratos utilizados pela aplicação.
 
-
-
 Exemplos:
-
-
-
-text
 
 Requests
 
-
-
 Responses
 
-
-
 Commands
-
-
 
 Events
 
 
-
-
-
 Essa separação facilita a comunicação entre API, Worker e futuras integrações.
 
+---
 
-
-\---
-
-
-
-\## BakeryHub.Worker
-
-
+## BakeryHub.Worker
 
 Serviço responsável pelo processamento assíncrono.
 
-
-
 Executa tarefas que não precisam ocorrer durante a requisição HTTP.
-
-
 
 Exemplos:
 
-
-
-text
-
 Processamento de eventos
-
-
 
 Agendamento de notificações
 
-
-
 Envio de notificações push
-
-
 
 Rotinas em background
 
 
+---
 
-
-
-\---
-
-
-
-\# Estratégia de Persistência
-
-
+# Estratégia de Persistência
 
 O sistema utilizará inicialmente um único banco de dados.
-
-
-
-text
 
 BakeryHubDb
 
 
-
-
-
 Tecnologia prevista:
 
-
-
-text
-
 SQL Server
-
-
-
 
 
 Benefícios:
 
-
-
-\- Simplicidade operacional
-
-\- Facilidade de manutenção
-
-\- Facilidade de desenvolvimento
-
-\- Menor custo de infraestrutura
-
-
+- Simplicidade operacional
+- Facilidade de manutenção
+- Facilidade de desenvolvimento
+- Menor custo de infraestrutura
 
 A divisão em múltiplos bancos será avaliada apenas caso exista necessidade real de escalabilidade futura.
 
+---
 
-
-\---
-
-
-
-\# Estratégia de Autenticação
-
-
+# Estratégia de Autenticação
 
 Será utilizada autenticação baseada em JWT.
 
-
-
 Fluxo:
-
-
-
-text
 
 Login
 
-
-
 ↓
-
-
 
 Access Token
 
-
-
 ↓
-
-
 
 Acesso aos recursos protegidos
 
 
-
-
-
 Perfis suportados:
-
-
-
-text
 
 Customer
 
-
-
 Bakery
-
-
 
 Admin
 
 
-
-
-
 O sistema utilizará autorização baseada em Roles e Claims.
 
+---
 
-
-\---
-
-
-
-\# Estratégia de Mensageria
-
-
+# Estratégia de Mensageria
 
 A mensageria será utilizada para processamentos assíncronos.
 
-
-
 Tecnologia prevista:
 
-
-
-text
-
 RabbitMQ
-
-
-
 
 
 Exemplos de eventos:
 
-
-
-text
-
 BatchCreated
-
-
 
 BatchUpdated
 
-
-
 BatchCompleted
 
-
-
 NotificationScheduled
-
-
 
 NotificationSent
 
 
+---
 
+# Estratégia de Front-End
 
-
-\---
-
-
-
-\# Estratégia de Front-End
-
-
-
-\## Portal Web
-
-
+## Portal Web
 
 Tecnologia prevista:
 
-
-
-text
-
 React
-
 TypeScript
-
-
-
 
 
 Responsável por:
 
+- Administração
+- Operação dos estabelecimentos
+- Gestão de produções
+- Aprovação de estabelecimentos
 
+---
 
-\- Administração
-
-\- Operação dos estabelecimentos
-
-\- Gestão de produções
-
-\- Aprovação de estabelecimentos
-
-
-
-\---
-
-
-
-\## Aplicativo Mobile
-
-
+## Aplicativo Mobile
 
 Tecnologia prevista:
-
-
-
-text
 
 .NET MAUI
 
 
-
-
-
 Responsável por:
 
+- Consumo de notificações
+- Acompanhamento de estabelecimentos
+- Experiência do consumidor final
 
+---
 
-\- Consumo de notificações
-
-\- Acompanhamento de estabelecimentos
-
-\- Experiência do consumidor final
-
-
-
-\---
-
-
-
-\# Infraestrutura Planejada
-
-
+# Infraestrutura Planejada
 
 Ambiente local:
-
-
-
-text
 
 Docker Compose
 
 
-
-
-
 Serviços:
-
-
-
-text
 
 API
 
-
-
 Worker
-
-
 
 SQL Server
 
-
-
 RabbitMQ
-
-
 
 Seq
 
 
-
-
-
-\---
-
-
+---
 
 Ambiente cloud:
-
-
-
-text
 
 Microsoft Azure
 
 
-
-
-
 Serviços previstos:
-
-
-
-text
 
 Azure Container Apps
 
-
-
 Azure SQL Database
-
-
 
 Azure Blob Storage
 
-
-
 Azure Key Vault
-
-
 
 Application Insights
 
 
+---
 
-
-
-\---
-
-
-
-\# Evolução Futura
-
-
+# Evolução Futura
 
 A arquitetura foi planejada para permitir evolução incremental.
 
-
-
 Possíveis evoluções:
 
-
-
-\- Kubernetes
-
-\- AKS
-
-\- OpenTelemetry
-
-\- Redis
-
-\- Cache distribuído
-
-\- Escalonamento horizontal
-
-\- Multi-tenancy
-
-\- Microserviços
-
-
+- Kubernetes
+- AKS
+- OpenTelemetry
+- Redis
+- Cache distribuído
+- Escalonamento horizontal
+- Multi-tenancy
+- Microserviços
 
 Nenhuma dessas decisões será adotada antes que exista necessidade real ou valor claro para o produto.
 
+---
 
-
-\---
-
-
-
-\# Decisões Arquiteturais Registradas
-
-
+# Decisões Arquiteturais Registradas
 
 | Decisão | Status |
-
 |----------|----------|
-
 | Monólito Modular | Aprovado |
-
 | Clean Architecture | Aprovado |
-
 | Banco de Dados Único | Aprovado |
-
 | SQL Server | Aprovado |
-
 | JWT Authentication | Aprovado |
-
 | RabbitMQ | Aprovado |
-
 | React para Portal Web | Aprovado |
-
 | .NET MAUI para Mobile | Aprovado |
-
 | Azure como Plataforma Cloud | Aprovado |
-
 | Kubernetes | Postergado |
-
 | Microserviços | Postergado |
-
