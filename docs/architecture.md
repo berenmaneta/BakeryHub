@@ -20,7 +20,6 @@ As regras de negócio não devem depender de bibliotecas, frameworks ou tecnolog
 
 As dependências devem apontar sempre para o centro da aplicação.
 
-text
 API
  ↓
 Application
@@ -68,7 +67,6 @@ A comunicação assíncrona permitirá demonstrar conceitos de Event Driven Arch
 
 # Estrutura da Solução
 
-text
 BakeryHub.sln
 
 src
@@ -98,7 +96,6 @@ Não deve possuir dependências de frameworks ou tecnologias externas.
 
 Exemplos:
 
-text
 User
 Role
 UserRole
@@ -135,7 +132,6 @@ Exemplos:
 
 ### Commands
 
-text
 CreateUser
 
 RequestBakeryApproval
@@ -149,7 +145,6 @@ FollowBakery
 
 ### Queries
 
-text
 GetUser
 
 GetBakery
@@ -177,7 +172,6 @@ Não contém regras de negócio.
 
 Exemplos:
 
-text
 Entity Framework Core
 
 SQL Server
@@ -208,7 +202,6 @@ Responsável por expor os recursos da plataforma.
 
 Exemplos:
 
-text
 /api/auth
 
 /api/users
@@ -237,7 +230,6 @@ Responsável pelo compartilhamento de contratos utilizados pela aplicação.
 
 Exemplos:
 
-text
 Requests
 
 Responses
@@ -259,7 +251,6 @@ Executa tarefas que não precisam ocorrer durante a requisição HTTP.
 
 Exemplos:
 
-text
 Processamento de eventos
 
 Agendamento de notificações
@@ -275,13 +266,11 @@ Rotinas em background
 
 O sistema utilizará inicialmente um único banco de dados.
 
-text
 BakeryHubDb
 
 
 Tecnologia prevista:
 
-text
 SQL Server
 
 
@@ -302,7 +291,6 @@ Será utilizada autenticação baseada em JWT.
 
 Fluxo:
 
-text
 Login
 
 ↓
@@ -316,7 +304,6 @@ Acesso aos recursos protegidos
 
 Perfis suportados:
 
-text
 Customer
 
 Bakery
@@ -334,13 +321,11 @@ A mensageria será utilizada para processamentos assíncronos.
 
 Tecnologia prevista:
 
-text
 RabbitMQ
 
 
 Exemplos de eventos:
 
-text
 BatchCreated
 
 BatchUpdated
@@ -360,7 +345,6 @@ NotificationSent
 
 Tecnologia prevista:
 
-text
 React
 TypeScript
 
@@ -378,7 +362,6 @@ Responsável por:
 
 Tecnologia prevista:
 
-text
 .NET MAUI
 
 
@@ -394,13 +377,11 @@ Responsável por:
 
 Ambiente local:
 
-text
 Docker Compose
 
 
 Serviços:
 
-text
 API
 
 Worker
@@ -416,13 +397,11 @@ Seq
 
 Ambiente cloud:
 
-text
 Microsoft Azure
 
 
 Serviços previstos:
 
-text
 Azure Container Apps
 
 Azure SQL Database
