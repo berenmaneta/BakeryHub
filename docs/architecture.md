@@ -319,9 +319,12 @@ O sistema utilizará autorização baseada em Roles e Claims.
 
 A mensageria será utilizada para processamentos assíncronos.
 
-Tecnologia prevista:
+Mensageria baseada em abstrações.
 
-RabbitMQ
+Implementações previstas:
+
+- RabbitMQ
+- Azure Service Bus
 
 
 Exemplos de eventos:
