@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BakeryHub.Api/BakeryHub.Api.csproj" />
+    <Project Path="src/BakeryHub.Application/BakeryHub.Application.csproj" />
+    <Project Path="src/BakeryHub.Contracts/BakeryHub.Contracts.csproj" />
+    <Project Path="src/BakeryHub.Domain/BakeryHub.Domain.csproj" />
+    <Project Path="src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj" />
+    <Project Path="src/BakeryHub.Worker/BakeryHub.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BakeryHub.IntegrationTests/BakeryHub.IntegrationTests.csproj" />
+    <Project Path="tests/BakeryHub.UnitTests/BakeryHub.UnitTests.csproj" />
+  </Folder>
+</Solution>

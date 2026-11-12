@@ -241,7 +241,7 @@ Id
 
 BakeryProfileId
 
-ProductName
+ProductId
 
 StartTime
 
@@ -254,6 +254,8 @@ CompletedAt
 Status
 
 CreatedAt
+
+UpdatedAt
 
 
 ---

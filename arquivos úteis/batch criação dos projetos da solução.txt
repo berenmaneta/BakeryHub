@@ -1,0 +1,47 @@
+# 1. Criar a Solution
+dotnet new sln -n BakeryHub
+
+# 2. Criar os projetos da camada de código-fonte (src)
+dotnet new classlib -n BakeryHub.Domain -o src/BakeryHub.Domain
+dotnet new classlib -n BakeryHub.Contracts -o src/BakeryHub.Contracts
+dotnet new classlib -n BakeryHub.Application -o src/BakeryHub.Application
+dotnet new classlib -n BakeryHub.Infrastructure -o src/BakeryHub.Infrastructure
+dotnet new webapi -n BakeryHub.Api -o src/BakeryHub.Api
+dotnet new worker -n BakeryHub.Worker -o src/BakeryHub.Worker
+
+# 3. Criar os projetos de teste (tests)
+dotnet new xunit -n BakeryHub.UnitTests -o tests/BakeryHub.UnitTests
+dotnet new xunit -n BakeryHub.IntegrationTests -o tests/BakeryHub.IntegrationTests
+
+# 4. Adicionar todos os projetos à Solution
+dotnet sln add src/BakeryHub.Domain/BakeryHub.Domain.csproj
+dotnet sln add src/BakeryHub.Contracts/BakeryHub.Contracts.csproj
+dotnet sln add src/BakeryHub.Application/BakeryHub.Application.csproj
+dotnet sln add src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj
+dotnet sln add src/BakeryHub.Api/BakeryHub.Api.csproj
+dotnet sln add src/BakeryHub.Worker/BakeryHub.Worker.csproj
+dotnet sln add tests/BakeryHub.UnitTests/BakeryHub.UnitTests.csproj
+dotnet sln add tests/BakeryHub.IntegrationTests/BakeryHub.IntegrationTests.csproj
+
+# 5. Configurar as Referências (Clean Architecture)
+# Application depende apenas do Domain e Contracts
+dotnet add src/BakeryHub.Application/BakeryHub.Application.csproj reference src/BakeryHub.Domain/BakeryHub.Domain.csproj
+dotnet add src/BakeryHub.Application/BakeryHub.Application.csproj reference src/BakeryHub.Contracts/BakeryHub.Contracts.csproj
+
+# Infrastructure depende de Application (para implementar as interfaces) e Domain
+dotnet add src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj reference src/BakeryHub.Application/BakeryHub.Application.csproj
+dotnet add src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj reference src/BakeryHub.Domain/BakeryHub.Domain.csproj
+
+# API depende de Application, Infrastructure (para injeção de dependência) e Contracts
+dotnet add src/BakeryHub.Api/BakeryHub.Api.csproj reference src/BakeryHub.Application/BakeryHub.Application.csproj
+dotnet add src/BakeryHub.Api/BakeryHub.Api.csproj reference src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj
+dotnet add src/BakeryHub.Api/BakeryHub.Api.csproj reference src/BakeryHub.Contracts/BakeryHub.Contracts.csproj
+
+# Worker tem as mesmas dependências da API
+dotnet add src/BakeryHub.Worker/BakeryHub.Worker.csproj reference src/BakeryHub.Application/BakeryHub.Application.csproj
+dotnet add src/BakeryHub.Worker/BakeryHub.Worker.csproj reference src/BakeryHub.Infrastructure/BakeryHub.Infrastructure.csproj
+dotnet add src/BakeryHub.Worker/BakeryHub.Worker.csproj reference src/BakeryHub.Contracts/BakeryHub.Contracts.csproj
+
+# Testes de Unidade dependem do Application e Domain
+dotnet add tests/BakeryHub.UnitTests/BakeryHub.UnitTests.csproj reference src/BakeryHub.Application/BakeryHub.Application.csproj
+dotnet add tests/BakeryHub.UnitTests/BakeryHub.UnitTests.csproj reference src/BakeryHub.Domain/BakeryHub.Domain.csproj
