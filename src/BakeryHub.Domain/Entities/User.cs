@@ -11,10 +11,12 @@ public class User
     public bool IsActive { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
+    public string Phone { get; private set; } = string.Empty;
+    public string Role { get; private set; } = "Customer";
 
     protected User() { }
 
-    public User(string name, string email, string passwordHash)
+    public User(string name, string email, string passwordHash, string phone)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("O nome é obrigatório.", nameof(name));
@@ -26,6 +28,8 @@ public class User
         Name = name;
         Email = email;
         PasswordHash = passwordHash;
+        Phone = phone;
+        Role = "Customer";
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
     }
