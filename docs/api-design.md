@@ -165,7 +165,8 @@ json
 {
   "name": "Bruno Hazan",
   "email": "bruno@email.com",
-  "password": "Senha123!"
+  "password": "Senha123!",
+  "phone" : "43988887777"
 }
 
 
@@ -173,9 +174,11 @@ json
 
 json
 {
-  "id": "guid",
-  "name": "Bruno Hazan",
-  "email": "bruno@email.com"
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "name": "string",
+  "email": "string",
+  "phone": "string",
+  "role": "string"
 }
 
 
@@ -202,6 +205,7 @@ json
   "id": "guid",
   "name": "Bruno Hazan",
   "email": "bruno@email.com",
+  "phone" : "43988887777"
   "roles": [
     "Customer"
   ]
