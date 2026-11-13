@@ -1,0 +1,4 @@
+dotnet tool install --global dotnet-ef --version "10.0.*"
+
+dotnet ef migrations add InitialCreate --project src/BakeryHub.Infrastructure --startup-project src/BakeryHub.Api
+dotnet ef database update --project src/BakeryHub.Infrastructure --startup-project src/BakeryHub.Api
