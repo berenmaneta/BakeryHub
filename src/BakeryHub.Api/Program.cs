@@ -1,3 +1,4 @@
+using BakeryHub.Application.UseCases;
 using BakeryHub.Application.UseCases.Users;
 using BakeryHub.Domain.Interfaces;
 using BakeryHub.Infrastructure.Persistence;
@@ -16,6 +17,7 @@ builder.Services.AddOpenApi();
 // Injeção de dependência para os repositórios e casos de uso
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+builder.Services.AddScoped<IGetUserByIdUseCase, GetUserByIdUseCase>();
 
 // Versionamento da API
 builder.Services.AddApiVersioning(options =>
